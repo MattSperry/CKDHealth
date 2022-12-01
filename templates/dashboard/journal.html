@@ -1,0 +1,52 @@
+{% extends 'partials/base.html' %} 
+{% load static %} 
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Daily Food Journal</h1>
+<br>
+<div class = "border p-3 shadow">
+    <h4>Input Foods Eaten</h4>
+    <form method="POST" action="{% url 'foodSearch' %}" name="search">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search for a food here">
+        <button class = "btn btn-primary" type='submit'>Search</button>
+    </form>
+    <br>
+    {% if food_names %}
+    <div style="display: flex">
+        <ul style="width: 50%">
+        {% for i in food_names %}
+            <li>{{ i }}</li>
+        {% endfor %}
+        </ul>
+        <ul style="width: 50%">
+            {% for i in serving_sizes %}
+                <li> serving size: {{ i }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <p> If your food item is not listed, feel free to add it to the database</p>
+        <a class="btn-primary btn" href="{% url 'addFoodItem' %}" style="margin-bottom: 1.0em"> Add Food Item </a>
+    {% else %}
+        <p> You have not searched a food, or your food item is not in the database</p>
+    {% endif %}
+
+    <form method="POST" action="{% url 'journalEntryAdd'%}" name="form">
+        {% csrf_token %}
+        <label for="food_name">Food Name:</label>
+        <select type="select" name="food_name" maxlength="200" placeholder="search results will appear here">
+            <option value="" disabled selected hidden>Search options will appear here</option>
+            {% for i in food_names %}
+            <option>{{ i }}</option>
+        {% endfor %}
+        </select><br>
+        <label for="date">Date Eaten:</label>
+        <input type="date" name="date"><br>
+        <label for="time">Time Eaten:</label>
+        <input type="time" name="time"><br>
+        <label for="amount">Amount (based on serving size):</label>
+        <input type="number" name="amount" step=0.5><br>
+        <button class = "btn btn-primary" type='submit'>Submit</button>
+    </form>
+</div>
+{% endblock %}

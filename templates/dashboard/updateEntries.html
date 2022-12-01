@@ -1,0 +1,53 @@
+{% extends 'partials/base.html' %} 
+{% load static %} 
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Daily Food Journal</h1>
+<br>
+<div class = "border p-3 shadow">
+    <h4>Input Foods Eaten</h4>
+    <form method="POST" action="{% url 'food-search-update-journal' currentEntry.journalID %}" name="search">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search for a food here">
+        <button id="searchButton" onload="Click" class = "btn btn-primary" type='submit'>Search</button>
+    </form>
+    <br>
+    {% if food_names %}
+    <div style="display: flex">
+        <ul style="width: 50%">
+        {% for i in food_names %}
+            <li>{{ i }}</li>
+        {% endfor %}
+        </ul>
+        <ul style="width: 50%">
+            {% for i in serving_sizes %}
+                <li> serving size: {{ i }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <p> If your food item is not listed, feel free to add it to the database</p>
+        <a class="btn-primary btn" href="{% url 'addFoodItem' %}" style="margin-bottom: 1.0em"> Add Food Item </a>
+    {% else %}
+        <p> You have not searched a food, or your food item is not in the database</p>
+    {% endif %}
+
+    <form method="POST" action="{% url 'update-journal-entry'%}" name="form">
+        {% csrf_token %}
+        <input type="hidden" value="{{currentEntry.journalID}}" name="journalid">
+        <label for="food_name">Food Name:</label>
+        <select type="select" name="food_name" maxlength="200">
+            <option selected hidden>{{currentEntry.food_name}}</option>
+            {% for i in food_names %}
+            <option>{{ i }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="date">Date Eaten:</label>
+        <input type="date" name="date" value="{{currentEntry.date_recorded}}"><br>
+        <label for="time">Time Eaten:</label>
+        <input type="time" name="time" value="{{currentEntry.time_recorded}}"><br>
+        <label for="amount">Amount (based on serving size):</label>
+        <input type="number" name="amount" step=0.5 value="{{currentEntry.amount}}"><br>
+        <button class = "btn btn-primary" type='submit'>Submit</button>
+    </form>
+</div>
+{% endblock %}

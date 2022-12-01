@@ -1,0 +1,26 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<h1><b>Journal Entries for {{currentUser.first_name}} {{currentUser.last_name}}</b></h1>
+    <div class="entries">
+        {% for date in data_array %}
+            <h3><b>{{ date }}</b></h3>
+            {% for entries in journal_entries %}
+                {% if currentUser.personID == entries.personID %}
+                {% if entries.date_recorded == date %}
+                <p style="border: 1px solid black; padding-left: 20px; padding-top: 15px;">
+                    <!--{{ entries.personID }} <br>-->
+                    <!--{{ entries.date_time_recorded }} --> 
+                    <b>Food: </b> {{ entries.food_name }} <br>
+                    <span style="font-weight: bold;">Amount:</span> {{ entries.amount }} <br>
+                    <b>Time Eaten:</b> {{ entries.time_recorded }} <br><br>
+                    <a href="{% url 'update-entries' entries.journalID %}">Update Journal Entry</a>&emsp;
+                    <a style="color: red;" href="{% url 'delete-entry' entries.journalID %}">Delete Journal Entry</a>
+                </p>
+                {%endif%}
+                {%endif%}
+            {% endfor %} 
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
