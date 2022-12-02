@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 #SECRET_KEY = 'django-insecure-8=1&)o!055rwh%no($@9x68*^9c3oo3zm6%7h91j-lb&ynyuby'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://ckdhealth-intex-project.up.railway.app']
