@@ -129,7 +129,7 @@ def journalPageView(request):
 def suggestionsPageView(request):
     currentPerson = Person.objects.get(personID  = request.user.id)
 
-    data = JournalEntry.objects.filter(personID = request.user.id, date_recorded = date.today() - timedelta(days=1))
+    data = JournalEntry.objects.filter(personID = request.user.id, date_recorded = date.today())
     potassium = 0
     phosphorus = 0
     sodium = 0
@@ -234,7 +234,7 @@ def suggestionsPageView(request):
     return render(request, 'dashboard/suggestions.html', context)
 
 def indexPageView(request):
-    data = JournalEntry.objects.filter(personID = request.user.id, date_recorded = date.today() - timedelta(days=1))
+    data = JournalEntry.objects.filter(personID = request.user.id, date_recorded = date.today())
     potassium = 0
     phosphorus = 0
     sodium = 0
@@ -294,7 +294,7 @@ def indexPageView(request):
         alerts += 'Sugar '
 
     for i in range(1,7) :
-        today = date.today() - timedelta(days=1)
+        today = date.today()
         new_day = (today - timedelta(days=i))
         day_data = JournalEntry.objects.filter(personID = request.user.id, date_recorded = new_day)
         day_potassium = 0
