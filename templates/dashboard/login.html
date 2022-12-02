@@ -182,44 +182,6 @@ a:hover {
 <link rel="stylesheet" hret="{% static 'css/newLogin.css' %}"></link>
 
 
-<script
-  src="https://code.jquery.com/jquery-3.6.1.min.js"
-  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-  crossorigin="anonymous"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-      $(function() {
-          $( "#some_flag" ).dialog({
-              modal: true,
-              closeOnEscape: false,
-              dialogClass: "no-close",
-              resizable: false,
-              draggable: false,
-              width: 800,
-              buttons: [
-                  {
-                      text: "OK",
-                      click: function() {
-                      $( this ).dialog( "close" );
-                      }
-                  }
-              ]
-          });
-      });
-  });
-  $(document).ready(function(){
-
-    $("#some_flag").on("click", function(){
-          $("#some_flag").hide();
-    });
-
-  });
-</script>
-{% if success == False %}
-<div id="some_flag" title="Some Flag" style="background-color: red; text-align: center;">
-    <p style="color:white">Username or password incorrect, try again (X)</p>
-</div>
-{% endif %}
 <div class="container px-4 py-5 mx-auto">
     <div class="card card0">
         <div class="d-flex flex-lg-row flex-column-reverse">
